@@ -1,0 +1,11 @@
+rally:
+  scenarios:
+    - name: create images and boot instances
+      file: create-image-and-boot-instances.yaml
+  args:
+    concurrency:
+      - 1
+      - 2
+    times:
+      - 20
+    sla_max_failure: 10
