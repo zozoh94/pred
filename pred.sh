@@ -56,9 +56,6 @@ mount -a
 chmod +x operator.sh
 rsync -avz --progress operator.sh root@$(cat $OAR_NODE_FILE | head -n 1):~/
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) -C "./operator.sh"
-ssh root@$(cat $OAR_NODE_FILE | head -n 1) "su pred -c 'mkdir /home/pred/.ssh'"
-ssh root@$(cat $OAR_NODE_FILE | head -n 1) "su pred -c 'touch /home/pred/.ssh/authorized_keys'"
-cat ~/.ssh/id_rsa.pub | ssh root@$(cat $OAR_NODE_FILE | head -n 1) "cat - >> /home/pred/.ssh/authorized_keys"
 
 # On lance les benchmarks
 
