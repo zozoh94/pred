@@ -33,7 +33,7 @@ kadeploy3 -f $OAR_NODE_FILE -e debian9-x64-base -k
 echo "
 #!/bin/bash
 groupadd -g 8000 users2
-useradd -m -g 8000 -u "$(id -u)" -s /bin/bash pred
+useradd -m -g 8000 -u "$(id -u)" -s /bin/bash "$USER"
 apt-get remove -y docker docker-engine docker.io
 apt-get install -y \
 	apt-transport-https \
@@ -48,14 +48,15 @@ add-apt-repository \
    \$(lsb_release -cs) \
    stable\"
 apt-get update
-apt-get install -y nfs-common docker-ce
-usermod -aG docker pred
-echo \"nfs:/export/home/"$USER"    /home/pred       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0\" >> /etc/fstab
+apt-get install -y nfs-common docker-ce virtualenv python-dev jq
+usermod -aG docker "$USER"
+echo \"nfs:/export/home/"$USER"    /home/"$USER"       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0\" >> /etc/fstab
 mount -a
 " > operator.sh
 chmod +x operator.sh
 rsync -avz --progress operator.sh root@$(cat $OAR_NODE_FILE | head -n 1):~/
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) -C "./operator.sh"
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && source venv/bin/activate && pip install -U pip && pip install enos"
 
 # On lance les benchmarks
 
@@ -88,4 +89,4 @@ ssh root@$(cat $OAR_NODE_FILE | head -n 1) -C "./operator.sh"
 #ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -s 3"
 
 
-
+rm -rf venv

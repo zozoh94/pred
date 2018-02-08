@@ -1,4 +1,8 @@
-STORAGE_NODES=(10.24.3.2)
+STORAGE_NODES=()
+for ((i=0 ; $NODE - $i; i++))
+do
+    STORAGE_NODES=("${STORAGE_NODES[@]}" $(host $(jq ".rsc.storage[$i].address" info.json -r) | grep -oP "address\s+\K.*"))
+done
 KOLLA_SWIFT_BASE_IMAGE="kolla/oraclelinux-source-swift-base:4.0.0"
 
 # Object ring

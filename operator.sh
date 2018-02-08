@@ -1,15 +1,15 @@
 
 #!/bin/bash
 groupadd -g 8000 users2
-useradd -m -g 8000 -u 12897 -s /bin/bash pred
+useradd -m -g 8000 -u 12897 -s /bin/bash ehamelin
 apt-get remove -y docker docker-engine docker.io
 apt-get install -y 	apt-transport-https 	ca-certificates 	curl 	gnupg2 	software-properties-common
 curl -fsSL https://download.docker.com/linux/"debian"/gpg | sudo apt-key add -
 apt-key fingerprint 0EBFCD88
 add-apt-repository    "deb [arch=amd64] https://download.docker.com/linux/"debian"    $(lsb_release -cs)    stable"
 apt-get update
-apt-get install -y nfs-common docker-ce
-usermod -aG docker pred
-echo "nfs:/export/home/ehamelin    /home/pred       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0" >> /etc/fstab
+apt-get install -y nfs-common docker-ce virtualenv python-dev
+usermod -aG docker ehamelin
+echo "nfs:/export/home/ehamelin    /home/ehamelin       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0" >> /etc/fstab
 mount -a
 
