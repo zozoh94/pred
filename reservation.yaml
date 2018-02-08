@@ -1,3 +1,9 @@
+# Topology : simple
+# Storage per group except compute : 
+# Backend for Glance : local
+# Locality : nantes
+# Type of node : econome
+
 ---
 # ############################################### #
 # Grid'5000 reservation parameters                #
@@ -5,31 +11,25 @@
 provider:
   type: g5k
   name: 'Enos'
-  walltime: '3:00:00'
+  walltime: '12:00:00'
   # reservation: '2018-01-26 23:16:00'
   # mandatory : you need to have exacly one vlan
   vlans:
-     rennes: "{type='kavlan'}/vlan=1"
+     nantes: "{type='kavlan'}/vlan=1"
   # Be less strict on node distribution especially
   # when nodes are missing in the reservation
   # or not deployed
   role_distribution: debug
 
-# Resources description
-#resources:
-#  paravance:
-#    control: 1
-#    compute: 1
-#    network: 1
 
 topology:
   grp1:
-     parapide:
+   econome:
       control: 1
       network: 1
-      #storage: 1
+
   grp2:
-     parapide:
+    econome:
       compute: 1
 
 network_constraints:
@@ -85,5 +85,4 @@ kolla:
   enable_octavia: "no"
   enable_heat: "no"
   enable_horizon: "yes"
-  #enable_swift: "yes"
-  #glance_backend_swift: "yes"
+

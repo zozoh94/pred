@@ -2,3 +2,5 @@ current/
 enos_*/
 venv/
 *~
+OAR*
+#*

@@ -1,21 +1,94 @@
 #!/bin/bash
-nowDateH=$(date +%H)
-if(($nowDateH >= 23 || $nowDateH < 19)); then
-    nowDateS=$(date +%s)
-    startDateS=$(date -d "19:00" +%s)
-    sleepTime=$(($startDateS-$nowDateS))
-    sleep $sleepTime
-else
-    echo "Trop tard pour préparer une nuit de benchmark"
-    exit
-fi
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+
+    case $key in
+	-l|--locality)
+	    LOCALITY="$2"
+	    shift # past argument
+	    shift # past value
+	    ;;
+	-n|--node)
+	    NODE="$2"
+	    shift # past argument
+	    shift # past value
+	    ;;
+	-h|--help)
+	    echo "Usage: ./pred.sh -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
+	    exit
+	    ;;
+	*)   # unknown option
+	    POSITIONAL+=("$1") # save it in an array for later
+	    shift # past argument
+	    ;;
+    esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
 
 # On réserve un operator puis on le prépare
-oarsub -I -l nodes=1,walltime=13 -t deploy
 kadeploy3 -f $OAR_NODE_FILE -e debian9-x64-base -k
+echo "
+#!/bin/bash
+groupadd -g 8000 users2
+useradd -m -g 8000 -u "$(id -u)" -s /bin/bash pred
+apt-get remove -y docker docker-engine docker.io
+apt-get install -y \
+	apt-transport-https \
+	ca-certificates \
+	curl \
+	gnupg2 \
+	software-properties-common
+curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo \"$ID\")/gpg | sudo apt-key add -
+apt-key fingerprint 0EBFCD88
+add-apt-repository \
+   \"deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo \"$ID\") \
+   \$(lsb_release -cs) \
+   stable\"
+apt-get update
+apt-get install -y nfs-common docker-ce
+usermod -aG docker pred
+echo \"nfs:/export/home/"$USER"    /home/pred       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0\" >> /etc/fstab
+mount -a
+" > operator.sh
+chmod +x operator.sh
 rsync -avz --progress operator.sh root@$(cat $OAR_NODE_FILE | head -n 1):~/
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) -C "./operator.sh"
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) "su pred -c 'mkdir /home/pred/.ssh'"
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) "su pred -c 'touch /home/pred/.ssh/authorized_keys'"
 cat ~/.ssh/id_rsa.pub | ssh root@$(cat $OAR_NODE_FILE | head -n 1) "cat - >> /home/pred/.ssh/authorized_keys"
+
+# On lance les benchmarks
+
+## Topology simple
+
+### Backend local
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b local -t simple -l $LOCALITY -n $NODE"
+
+## Swift with 1 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE"
+
+## Swift with 3 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE -s 3"
+
+## Ceph with 3 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t simple -l $LOCALITY -n $NODE -s 3"
+
+## Topology edge
+
+### Backend local
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b local -t edge -l $LOCALITY -n $NODE"
+
+## Swift with 1 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE"
+
+## Swift with 3 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -s 3"
+
+## Ceph with 3 storage node
+#ssh pred@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -s 3"
+
+
 
