@@ -49,6 +49,7 @@ rm reservation.yaml
 source venv/bin/activate
 ./make_reservation.sh -b $BACKEND -t $TOPOLOGY -l $LOCALITY -n $NODE -s $STORAGE > reservation.yaml
 enos up --force-deploy
+enos info --out json > info.json
 if [ $BACKEND == "swift" ]
 then
    for ((i=0 ; $NODE - $i; i++))
@@ -65,6 +66,7 @@ then
        ssh root@$(jq ".rsc.storage[$i].address" info.json -r) -C "./ceph.sh"
    done
 fi
+rm info.json
 enos os
 enos init
 enos bench --workload=workload
