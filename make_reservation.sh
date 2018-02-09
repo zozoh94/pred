@@ -58,7 +58,7 @@ case $TOPOLOGY in
 esac
 
 case $BACKEND in
-    "local"|"swift"|"edge")
+    "local"|"swift"|"ceph")
 	;;
     *)
 	echo "Backend should be either local, Swift or Ceph"
@@ -82,7 +82,7 @@ echo "
 provider:
   type: g5k
   name: 'Enos'
-  walltime: '12:00:00'
+  walltime: '4:00:00'
   # reservation: '2018-01-26 23:16:00'
   # mandatory : you need to have exacly one vlan
   vlans:

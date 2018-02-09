@@ -52,7 +52,7 @@ enos up --force-deploy
 enos info --out json > info.json
 if [ $BACKEND == "swift" ]
 then
-   for ((i=0 ; $NODE - $i; i++))
+   for ((i=0 ; $STORAGE - $i; i++))
    do
        rsync -avz --progress swift.sh root@$(jq ".rsc.storage[$i].address" info.json -r):~/
        ssh root@$(jq ".rsc.storage[$i].address" info.json -r) -C "./swift.sh"
@@ -60,7 +60,7 @@ then
    ./generate_rings.sh
 elif [ $BACKEND == "ceph" ]
 then
-   for ((i=0 ; $NODE - $i; i++))
+   for ((i=0 ; $STORAGE - $i; i++))
    do
        rsync -avz --progress ceph.sh root@$(jq ".rsc.storage[$i].address" info.json -r):~/
        ssh root@$(jq ".rsc.storage[$i].address" info.json -r) -C "./ceph.sh"
@@ -73,4 +73,4 @@ enos bench --workload=workload
 enos backup
 cp current/*rally.tar.gz ../public/$BACKEND"_"$TOPOLOGY"_"$STORAGE"_rally.tar.gz"
 
-rm reservation.yaml
+#rm reservation.yaml
