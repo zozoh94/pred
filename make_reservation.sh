@@ -82,7 +82,7 @@ echo "
 provider:
   type: g5k
   name: 'Enos'
-  walltime: '4:00:00'
+  walltime: '8:00:00'
   # reservation: '2018-01-26 23:16:00'
   # mandatory : you need to have exacly one vlan
   vlans:

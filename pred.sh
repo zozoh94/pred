@@ -56,6 +56,7 @@ mount -a
 chmod +x operator.sh
 rsync -avz --progress operator.sh root@$(cat $OAR_NODE_FILE | head -n 1):~/
 ssh root@$(cat $OAR_NODE_FILE | head -n 1) -C "./operator.sh"
+rm -rf venv
 ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && source venv/bin/activate && pip install -U pip && pip install enos"
 
 # On lance les benchmarks
@@ -69,7 +70,7 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && so
 #ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE"
 
 ## Swift with 3 storage node
-#ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE -s 3"
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE -s 3"
 
 ## Ceph with 3 storage node
 ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t simple -l $LOCALITY -n $NODE -s 3"
@@ -87,6 +88,3 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b cep
 
 ## Ceph with 3 storage node
 #ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -s 3"
-
-
-#rm -rf venv

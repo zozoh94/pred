@@ -1,5 +1,36 @@
+#!/bin/bash
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]
+do
+    key="$1"
+
+    case $key in
+	-s|--storage_per_control)
+	    STORAGE="$2"
+	    shift # past argument
+	    shift # past value
+	    ;;
+	-h|--help)
+	    echo "Usage: ./generate_rings.sh -s|--storage_per_control number"
+	    exit
+	    ;;
+	*)   # unknown option
+	    POSITIONAL+=("$1") # save it in an array for later
+	    shift # past argument
+	    ;;
+    esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+if [[ $STORAGE -lt 1 ]]
+then
+    echo "The number of storage should be greater or equal than 1"
+    exit
+fi
+
 STORAGE_NODES=()
-for ((i=0 ; $NODE - $i; i++))
+for ((i=0 ; $STORAGE - $i; i++))
 do
     STORAGE_NODES=("${STORAGE_NODES[@]}" $(host $(jq ".rsc.storage[$i].address" info.json -r) | grep -oP "address\s+\K.*"))
 done

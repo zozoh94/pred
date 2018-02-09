@@ -32,7 +32,7 @@ do
 	    shift # past value
 	    ;;
 	-h|--help)
-	    echo "Usage: ./bnchmark.sh -t|--topology simple|edge -s|--storage_per_control number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
+	    echo "Usage: ./benchmark.sh -t|--topology simple|edge -s|--storage_per_control number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
 	    exit
 	    ;;
 	*)   # unknown option
@@ -43,6 +43,30 @@ do
 done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
+case $TOPOLOGY in
+    "simple"|"edge")
+	;;
+    *)
+	echo "Topology should be either simple or edge"
+	exit
+esac
+
+case $BACKEND in
+    "local"|"swift"|"edge")
+	;;
+    *)
+	echo "Backend should be either local, Swift or Ceph"
+	exit
+esac
+
+if [[ $STORAGE -lt 1 ]]
+then
+    if [ $BACKEND != local ]
+    then
+	echo "The number of storage should be greater or equal than 1"
+	exit
+    fi
+fi
 
 rm reservation.yaml
 
@@ -57,7 +81,7 @@ then
        rsync -avz --progress swift.sh root@$(jq ".rsc.storage[$i].address" info.json -r):~/
        ssh root@$(jq ".rsc.storage[$i].address" info.json -r) -C "./swift.sh"
    done
-   ./generate_rings.sh
+   ./generate_rings.sh -s $STORAGE
 elif [ $BACKEND == "ceph" ]
 then
    for ((i=0 ; $STORAGE - $i; i++))
@@ -71,6 +95,4 @@ enos os
 enos init
 enos bench --workload=workload
 enos backup
-cp current/*rally.tar.gz ../public/$BACKEND"_"$TOPOLOGY"_"$STORAGE"_rally.tar.gz"
-
-#rm reservation.yaml
+cp current/*rally.tar.gz ../public/$BACKEND"_"$TOPOLOGY"_"$STORAGE"_rally_"$(date +%Y-%m-%d_%H:%M:%S)".tar.gz"
