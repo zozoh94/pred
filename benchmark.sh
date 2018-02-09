@@ -52,7 +52,7 @@ case $TOPOLOGY in
 esac
 
 case $BACKEND in
-    "local"|"swift"|"edge")
+    "local"|"swift"|"ceph")
 	;;
     *)
 	echo "Backend should be either local, Swift or Ceph"
