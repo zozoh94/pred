@@ -26,13 +26,13 @@ do
 	    shift # past argument
 	    shift # past value
 	    ;;
-	-m|--latency_mult)
-	    MULT_LATENCY="$2"
+	-m|--latencymult)
+	    MULTLATENCY="$2"
 	    shift # past argument
 	    shift # past value
 	    ;;
 	-h|--help)
-	    echo "Usage: ./benchmark.sh -t|--topology simple|edge -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
+	    echo "Usage: ./benchmark.sh -t|--topology simple|edge -m|--latencymult number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
 	    exit
 	    ;;
 	*)   # unknown option
@@ -59,16 +59,16 @@ case $BACKEND in
 	exit
 esac
 
-if [[ $MULT_LATENCY -lt 0 ]]
+if [[ $MULTLATENCY -le 0 ]]
 then
-    echo "The latency multiplicator should be greater or equal than 0"
+    echo "The latency multiplicator should be greater than 0"
     exit
 fi
 
 rm reservation.yaml
 
 source venv/bin/activate
-./make_reservation.sh -b $BACKEND -t $TOPOLOGY -l $LOCALITY -n $NODE -m $MULT_LATENCY > reservation.yaml
+./make_reservation.sh -b $BACKEND -t $TOPOLOGY -l $LOCALITY -n $NODE -m $MULTLATENCY > reservation.yaml
 enos up --force-deploy
 enos info --out json > info.json
 if [ $TOPOLOGY == "simple" ]

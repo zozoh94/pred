@@ -71,11 +71,14 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && so
 
 ## Topology edge
 
-### Backend local
-#ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b local -t edge -l $LOCALITY -n $NODE -m 1"
-
 ## Swift
 #ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -m 1"
 
 ## Ceph
 ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -m 1"
+
+## Swift
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -m 3"
+
+## Ceph
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -m 3"
