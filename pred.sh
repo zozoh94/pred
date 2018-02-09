@@ -64,7 +64,7 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && so
 ## Topology simple
 
 ### Backend local
-ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b local -t simple -l $LOCALITY -n $NODE"
+#ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b local -t simple -l $LOCALITY -n $NODE"
 
 ## Swift with 1 storage node
 #ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE"
@@ -73,7 +73,7 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b loc
 ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t simple -l $LOCALITY -n $NODE -s 3"
 
 ## Ceph with 3 storage node
-#ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t simple -l $LOCALITY -n $NODE -s 3"
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t simple -l $LOCALITY -n $NODE -s 3"
 
 ## Topology edge
 
