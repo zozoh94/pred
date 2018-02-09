@@ -6,13 +6,13 @@ do
     key="$1"
 
     case $key in
-	-s|--storage_per_control)
+	-s|--storage)
 	    STORAGE="$2"
 	    shift # past argument
 	    shift # past value
 	    ;;
 	-h|--help)
-	    echo "Usage: ./generate_rings.sh -s|--storage_per_control number"
+	    echo "Usage: ./generate_rings.sh -s|--storage number"
 	    exit
 	    ;;
 	*)   # unknown option

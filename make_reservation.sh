@@ -26,13 +26,13 @@ do
 	    shift # past argument
 	    shift # past value
 	    ;;
-	-m|--latency_mult)
-	    MULT_LATENCY="$2"
+	-m|--latencymult)
+	    MULTLATENCY="$2"
 	    shift # past argument
 	    shift # past value
 	    ;;
 	-h|--help)
-	    echo "Usage: ./make_reservation.sh -t|--topology simple|edge -m|--latency_mult number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
+	    echo "Usage: ./make_reservation.sh -t|--topology simple|edge -m|--latencymult number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
 	    exit
 	    ;;
 	*)   # unknown option
@@ -44,7 +44,7 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 echo "# Topology : "$TOPOLOGY
-echo "# Latency mult : "$MULT_LATENCY
+echo "# Latency mult : "$MULTLATENCY
 echo "# Backend for Glance : "$BACKEND
 echo "# Locality : "$LOCALITY
 echo "# Type of node : "$NODE
@@ -65,9 +65,9 @@ case $BACKEND in
 	exit
 esac
 
-if [[ $MULT_LATENCY -lt 0 ]]
+if [[ $MULTLATENCY -le 0 ]]
 then
-    echo "The latency multiplicator should be greater or equal than 0"
+    echo "The latency multiplicator should be greater than 0"
     exit
 fi
 
@@ -114,7 +114,7 @@ network_constraints:
     -
       src: grp1
       dst: grp2
-      delay: "$((10*$MULT_LATENCY))"ms
+      delay: "$((10*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
@@ -152,84 +152,84 @@ network_constraints:
     -
       src: grp1
       dst: grp5
-      delay: "$((10*$MULT_LATENCY))"ms
+      delay: "$((10*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp2
-      delay: "$((5*$MULT_LATENCY))"ms
+      delay: "$((5*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp5
-      delay: "$((10*$MULT_LATENCY))"ms
+      delay: "$((10*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp5
-      delay: "$((12*$MULT_LATENCY))"ms
+      delay: "$((12*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp4
       dst: grp5
-      delay: "$((15*$MULT_LATENCY))"ms
+      delay: "$((15*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp4
-      delay: "$((12*$MULT_LATENCY))"ms
+      delay: "$((12*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: "$((27*$MULT_LATENCY))"ms
+      delay: "$((27*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: "$((30*$MULT_LATENCY))"ms
+      delay: "$((30*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: "$((27*$MULT_LATENCY))"ms
+      delay: "$((27*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: "$((30*$MULT_LATENCY))"ms
+      delay: "$((30*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp3
-      delay: "$((27*$MULT_LATENCY))"ms
+      delay: "$((27*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp4
-      delay: "$((30*$MULT_LATENCY))"ms
+      delay: "$((30*$MULTLATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
