@@ -8,4 +8,4 @@ rally:
       - 2
     times:
       - 20
-    sla_max_failure: 10
+    sla_max_failure: 100

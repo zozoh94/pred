@@ -11,11 +11,6 @@ do
 	    shift # past argument
 	    shift # past value
 	    ;;
-	-s|--storage_per_control)
-	    STORAGE="$2"
-	    shift # past argument
-	    shift # past value
-	    ;;
 	-b|--backend)
 	    BACKEND="$2"
 	    shift # past argument
@@ -31,8 +26,13 @@ do
 	    shift # past argument
 	    shift # past value
 	    ;;
+	-m|--latency_mult)
+	    MULT_LATENCY="$2"
+	    shift # past argument
+	    shift # past value
+	    ;;
 	-h|--help)
-	    echo "Usage: ./make_reservation.sh -t|--topology simple|edge -s|--storage_per_control number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
+	    echo "Usage: ./make_reservation.sh -t|--topology simple|edge -m|--latency_mult number -b|--backend local|swift|ceph -l|--locality g5jlocality -n|--node localitydefaultqueuenode"
 	    exit
 	    ;;
 	*)   # unknown option
@@ -44,7 +44,7 @@ done
 set -- "${POSITIONAL[@]}" # restore positional parameters
 
 echo "# Topology : "$TOPOLOGY
-echo "# Storage per group except compute : "$STORAGE
+echo "# Latency mult : "$MULT_LATENCY
 echo "# Backend for Glance : "$BACKEND
 echo "# Locality : "$LOCALITY
 echo "# Type of node : "$NODE
@@ -65,13 +65,10 @@ case $BACKEND in
 	exit
 esac
 
-if [[ $STORAGE -lt 1 ]]
+if [[ $MULT_LATENCY -lt 0 ]]
 then
-    if [ $BACKEND != local ]
-    then
-	echo "The number of storage should be greater or equal than 1"
-	exit
-    fi
+    echo "The latency multiplicator should be greater or equal than 0"
+    exit
 fi
 
 echo "
@@ -98,13 +95,13 @@ case $TOPOLOGY in
 	echo "
 topology:
   grp1:
-   "$NODE":
+    "$NODE":
       control: 1
       network: 1"
 	if [ "$BACKEND" != "local" ]
 	then
 	   echo "
-      storage: "$STORAGE
+      storage: 1"
 	fi
 	echo "
   grp2:
@@ -117,7 +114,7 @@ network_constraints:
     -
       src: grp1
       dst: grp2
-      delay: 10ms
+      delay: "$((10*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
@@ -126,18 +123,27 @@ network_constraints:
     "edge")
 	echo "
 topology:
-  grp[1-4]:
-     "$NODE":
+  grp1:
+    "$NODE":
       control: 1
       network: 1"
 	if [ "$BACKEND" != "local" ]
 	then
 	    echo "
-      storage: "$STORAGE
+      storage: 1"
 	fi
 	echo "
+  grp2:
+    "$NODE":
+      storage: 1
+  grp3:
+    "$NODE":
+      storage: 1
+  grp4:
+    "$NODE":
+      storage: 1
   grp5:
-     "$NODE":
+    "$NODE":
       compute: 1
 
 network_constraints:
@@ -146,84 +152,84 @@ network_constraints:
     -
       src: grp1
       dst: grp5
-      delay: 10ms
+      delay: "$((10*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp2
-      delay: 5ms
+      delay: "$((5*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp5
-      delay: 10ms
+      delay: "$((10*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp5
-      delay: 12ms
+      delay: "$((12*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp4
       dst: grp5
-      delay: 15ms
+      delay: "$((15*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp4
-      delay: 12ms
+      delay: "$((12*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: 27ms
+      delay: "$((27*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: 30ms
+      delay: "$((30*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: 27ms
+      delay: "$((27*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: 30ms
+      delay: "$((30*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp3
-      delay: 27ms
+      delay: "$((27*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp4
-      delay: 30ms
+      delay: "$((30*$MULT_LATENCY))"ms
       rate: 1gbit
       loss: 0%
       symetric: true
