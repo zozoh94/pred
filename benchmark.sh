@@ -100,4 +100,4 @@ enos init
 enos tc
 enos bench --workload=workload
 enos backup
-cp current/*rally.tar.gz ../public/$BACKEND"_"$TOPOLOGY"_"$STORAGE"_rally_"$(date +%Y-%m-%d_%H:%M:%S)".tar.gz"
+cp current/*rally.tar.gz ../public/$BACKEND"_"$TOPOLOGY"_"$MULTLATENCY"_rally_"$(date +%Y-%m-%d_%H:%M:%S)".tar.gz"
