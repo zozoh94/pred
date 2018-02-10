@@ -74,7 +74,7 @@ enos info --out json > info.json
 if [ $TOPOLOGY == "simple" ]
 then
     $SOTRAGE=1
-elif [ $TOPOLOGY == "simple" ]
+elif [ $TOPOLOGY == "edge" ]
 then
      $STORAGE=4
 fi
