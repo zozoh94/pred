@@ -73,10 +73,10 @@ enos up --force-deploy
 enos info --out json > info.json
 if [ $TOPOLOGY == "simple" ]
 then
-    $SOTRAGE=1
+    SOTRAGE=1
 elif [ $TOPOLOGY == "edge" ]
 then
-     $STORAGE=4
+    STORAGE=4
 fi
 if [ $BACKEND == "swift" ]
 then
