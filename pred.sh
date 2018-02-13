@@ -48,7 +48,7 @@ add-apt-repository \
    \$(lsb_release -cs) \
    stable\"
 apt-get update
-apt-get install -y nfs-common docker-ce virtualenv python-dev jq
+apt-get install -y nfs-common docker-ce virtualenv python-dev jq bc
 usermod -aG docker "$USER"
 echo \"nfs:/export/home/"$USER"    /home/"$USER"       nfs     rw,nfsvers=3,hard,intr,async,noatime,nodev,nosuid,auto,rsize=32768,wsize=32768  0       0\" >> /etc/fstab
 mount -a
@@ -82,3 +82,7 @@ ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && virtualenv venv && so
 
 ## Ceph
 #ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b ceph -t edge -l $LOCALITY -n $NODE -m 3"
+
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -m 0.5"
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -m 1.5"
+ssh $USER@$(cat $OAR_NODE_FILE | head -n 1) -C "cd pred && ./benchmark.sh -b swift -t edge -l $LOCALITY -n $NODE -m 2"

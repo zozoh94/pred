@@ -65,7 +65,7 @@ case $BACKEND in
 	exit
 esac
 
-if [[ $MULTLATENCY -le 0 ]]
+if(( $(echo "$MULTLATENCY <= 0" | bc -l) ))
 then
     echo "The latency multiplicator should be greater than 0"
     exit
@@ -79,7 +79,7 @@ echo "
 provider:
   type: g5k
   name: 'Enos'
-  walltime: '8:00:00'
+  walltime: '12:00:00'
   # reservation: '2018-01-26 23:16:00'
   # mandatory : you need to have exacly one vlan
   vlans:
@@ -114,7 +114,7 @@ network_constraints:
     -
       src: grp1
       dst: grp2
-      delay: "$((10*$MULTLATENCY))"ms
+      delay: "$(echo "10*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
@@ -152,84 +152,84 @@ network_constraints:
     -
       src: grp1
       dst: grp5
-      delay: "$((10*$MULTLATENCY))"ms
+      delay: "$(echo "10*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp2
-      delay: "$((5*$MULTLATENCY))"ms
+      delay: "$(echo "5*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp5
-      delay: "$((10*$MULTLATENCY))"ms
+      delay: "$(echo "10*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp5
-      delay: "$((12*$MULTLATENCY))"ms
+      delay: "$(echo "12*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp4
       dst: grp5
-      delay: "$((15*$MULTLATENCY))"ms
+      delay: "$(echo "15*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp3
       dst: grp4
-      delay: "$((12*$MULTLATENCY))"ms
+      delay: "$(echo "12*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: "$((27*$MULTLATENCY))"ms
+      delay: "$(echo "27*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: "$((30*$MULTLATENCY))"ms
+      delay: "$(echo "30*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp3
-      delay: "$((27*$MULTLATENCY))"ms
+      delay: "$(echo "27*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp1
       dst: grp4
-      delay: "$((30*$MULTLATENCY))"ms
+      delay: "$(echo "30*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp3
-      delay: "$((27*$MULTLATENCY))"ms
+      delay: "$(echo "27*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true
     -
       src: grp2
       dst: grp4
-      delay: "$((30*$MULTLATENCY))"ms
+      delay: "$(echo "30*$MULTLATENCY" | bc -l)"ms
       rate: 1gbit
       loss: 0%
       symetric: true

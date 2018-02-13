@@ -59,7 +59,7 @@ case $BACKEND in
 	exit
 esac
 
-if [[ $MULTLATENCY -le 0 ]]
+if(( $(echo "$MULTLATENCY <= 0" | bc -l) ))
 then
     echo "The latency multiplicator should be greater than 0"
     exit
