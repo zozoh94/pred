@@ -1,1 +1,1 @@
-{"sla_max_failure": 10, "concurrency": 2, "times": 20}
+{"sla_max_seconds": 600, "sla_max_failure": 10, "sla_max_avg_duration": 600, "concurrency": 2, "times": 20}
