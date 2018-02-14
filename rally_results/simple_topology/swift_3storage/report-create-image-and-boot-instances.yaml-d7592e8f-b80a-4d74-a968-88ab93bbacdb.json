@@ -1,0 +1,1128 @@
+{
+    "info": {
+        "generated_at": "2018-02-09T11:37:50", 
+        "rally_version": "0.0.0", 
+        "format_version": "1.1"
+    }, 
+    "tasks": [
+        {
+            "uuid": "d7592e8f-b80a-4d74-a968-88ab93bbacdb", 
+            "title": "", 
+            "description": "", 
+            "status": "finished", 
+            "tags": [], 
+            "created_at": "2018-02-09T11:31:25", 
+            "updated_at": "2018-02-09T11:37:40", 
+            "pass_sla": true, 
+            "subtasks": [
+                {
+                    "uuid": "47f37cde-bada-4c71-ba2a-fc1e1d498054", 
+                    "title": "GlanceImages.create_image_and_boot_instances", 
+                    "description": "", 
+                    "status": "finished", 
+                    "created_at": "2018-02-09T11:31:35", 
+                    "updated_at": "2018-02-09T11:37:40", 
+                    "sla": {}, 
+                    "workloads": [
+                        {
+                            "uuid": "4ec55056-1df9-4f39-8663-af77e2859e46", 
+                            "description": "Create an image and boot several instances from it.", 
+                            "runner": {
+                                "constant": {
+                                    "times": 20, 
+                                    "concurrency": 2
+                                }
+                            }, 
+                            "hooks": [], 
+                            "scenario": {
+                                "GlanceImages.create_image_and_boot_instances": {
+                                    "image_location": "http://download.cirros-cloud.net/0.3.5/cirros-0.3.5-x86_64-disk.img", 
+                                    "container_format": "bare", 
+                                    "disk_format": "qcow2", 
+                                    "flavor": {
+                                        "name": "m1.tiny"
+                                    }, 
+                                    "number_instances": 2
+                                }
+                            }, 
+                            "min_duration": 8.761245965957642, 
+                            "max_duration": 34.666117906570435, 
+                            "start_time": 1518175903.245259, 
+                            "load_duration": 292.88680696487427, 
+                            "full_duration": 364.18301796913147, 
+                            "statistics": {
+                                "durations": {
+                                    "total": {
+                                        "display_name": "total", 
+                                        "data": {
+                                            "95%ile": 32.537, 
+                                            "success": "95.0%", 
+                                            "min": 9.761, 
+                                            "max": 35.666, 
+                                            "iteration_count": 20, 
+                                            "avg": 27.647, 
+                                            "median": 28.536, 
+                                            "90%ile": 31.161
+                                        }, 
+                                        "name": "total", 
+                                        "count_per_iteration": 1, 
+                                        "children": [
+                                            {
+                                                "display_name": "duration", 
+                                                "data": {
+                                                    "95%ile": 31.537, 
+                                                    "success": "95.0%", 
+                                                    "min": 8.761, 
+                                                    "max": 34.666, 
+                                                    "iteration_count": 20, 
+                                                    "avg": 26.647, 
+                                                    "median": 27.536, 
+                                                    "90%ile": 30.161
+                                                }, 
+                                                "name": "duration", 
+                                                "count_per_iteration": 1, 
+                                                "children": []
+                                            }, 
+                                            {
+                                                "display_name": "idle_duration", 
+                                                "data": {
+                                                    "95%ile": 1.0, 
+                                                    "success": "95.0%", 
+                                                    "min": 1.0, 
+                                                    "max": 1.0, 
+                                                    "iteration_count": 20, 
+                                                    "avg": 1.0, 
+                                                    "median": 1.0, 
+                                                    "90%ile": 1.0
+                                                }, 
+                                                "name": "idle_duration", 
+                                                "count_per_iteration": 1, 
+                                                "children": []
+                                            }
+                                        ]
+                                    }, 
+                                    "atomics": [
+                                        {
+                                            "display_name": "glance_v2.create_image", 
+                                            "data": {
+                                                "95%ile": 8.386, 
+                                                "success": "100.0%", 
+                                                "min": 5.111, 
+                                                "max": 8.553, 
+                                                "iteration_count": 20, 
+                                                "avg": 5.814, 
+                                                "median": 5.216, 
+                                                "90%ile": 7.351
+                                            }, 
+                                            "name": "glance_v2.create_image", 
+                                            "count_per_iteration": 1, 
+                                            "children": [
+                                                {
+                                                    "display_name": "glance_v2.get_image (x2)", 
+                                                    "data": {
+                                                        "95%ile": 0.086, 
+                                                        "success": "100.0%", 
+                                                        "min": 0.066, 
+                                                        "max": 0.167, 
+                                                        "iteration_count": 20, 
+                                                        "avg": 0.079, 
+                                                        "median": 0.074, 
+                                                        "90%ile": 0.079
+                                                    }, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "count_per_iteration": 2, 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "display_name": "glance_v2.upload_data", 
+                                                    "data": {
+                                                        "95%ile": 6.137, 
+                                                        "success": "100.0%", 
+                                                        "min": 2.851, 
+                                                        "max": 6.183, 
+                                                        "iteration_count": 20, 
+                                                        "avg": 3.54, 
+                                                        "median": 2.949, 
+                                                        "90%ile": 5.012
+                                                    }, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "count_per_iteration": 1, 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "display_name": "nova.boot_servers", 
+                                            "data": {
+                                                "95%ile": 25.242, 
+                                                "success": "95.0%", 
+                                                "min": 2.934, 
+                                                "max": 27.289, 
+                                                "iteration_count": 20, 
+                                                "avg": 21.832, 
+                                                "median": 22.913, 
+                                                "90%ile": 24.232
+                                            }, 
+                                            "name": "nova.boot_servers", 
+                                            "count_per_iteration": 1, 
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            }, 
+                            "data": [
+                                {
+                                    "timestamp": 1518175903.245259, 
+                                    "error": [], 
+                                    "duration": 31.372017860412598, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175910.482689, 
+                                            "started_at": 1518175903.245337, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175905.565251, 
+                                                    "started_at": 1518175905.515793, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175910.453222, 
+                                                    "started_at": 1518175905.56542, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175910.482539, 
+                                                    "started_at": 1518175910.453338, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175935.617246, 
+                                            "started_at": 1518175910.482799, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175903.276711, 
+                                    "error": [
+                                        "GetResourceErrorStatus", 
+                                        "Resource <Server: s_rally_4ec55056_Oa8bjEiY_1> has ERROR status.\n Fault: {u'message': u'No valid host was found. There are not enough hosts available.', u'code': 500, u'created': u'2018-02-09T11:31:52Z'}", 
+                                        "Traceback (most recent call last):\n  File \"/usr/local/lib/python2.7/dist-packages/rally/task/runner.py\", line 71, in _run_scenario_once\n    getattr(scenario_inst, method_name)(**scenario_kwargs)\n  File \"/usr/local/lib/python2.7/dist-packages/rally/plugins/openstack/scenarios/glance/images.py\", line 249, in run\n    **boot_server_kwargs)\n  File \"/usr/local/lib/python2.7/dist-packages/rally/task/atomic.py\", line 91, in func_atomic_actions\n    f = func(self, *args, **kwargs)\n  File \"/usr/local/lib/python2.7/dist-packages/rally/plugins/openstack/scenarios/nova/utils.py\", line 602, in _boot_servers\n    ) for server in servers]\n  File \"/usr/local/lib/python2.7/dist-packages/rally/task/utils.py\", line 215, in wait_for_status\n    resource = update_resource(resource)\n  File \"/usr/local/lib/python2.7/dist-packages/rally/task/utils.py\", line 90, in _get_from_manager\n    fault=getattr(res, \"fault\", \"n/a\"))\nGetResourceErrorStatus: Resource <Server: s_rally_4ec55056_Oa8bjEiY_1> has ERROR status.\n Fault: {u'message': u'No valid host was found. There are not enough hosts available.', u'code': 500, u'created': u'2018-02-09T11:31:52Z'}\n"
+                                    ], 
+                                    "duration": 8.761245965957642, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175910.103974, 
+                                            "started_at": 1518175903.276788, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175905.589272, 
+                                                    "started_at": 1518175905.54295, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175910.076522, 
+                                                    "started_at": 1518175905.589427, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175910.10387, 
+                                                    "started_at": 1518175910.076654, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175913.037942, 
+                                            "started_at": 1518175910.104065, 
+                                            "children": [], 
+                                            "name": "nova.boot_servers", 
+                                            "failed": true
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175914.277173, 
+                                    "error": [], 
+                                    "duration": 34.666117906570435, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175922.654277, 
+                                            "started_at": 1518175914.277202, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175916.491124, 
+                                                    "started_at": 1518175916.453901, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175922.625552, 
+                                                    "started_at": 1518175916.491241, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175922.654169, 
+                                                    "started_at": 1518175922.625664, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175949.943265, 
+                                            "started_at": 1518175922.65434, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175936.780382, 
+                                    "error": [], 
+                                    "duration": 30.026498079299927, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175945.333572, 
+                                            "started_at": 1518175936.780421, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175939.118064, 
+                                                    "started_at": 1518175938.982518, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175945.301419, 
+                                                    "started_at": 1518175939.118212, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175945.333468, 
+                                                    "started_at": 1518175945.301552, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175967.806851, 
+                                            "started_at": 1518175945.333638, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175951.092165, 
+                                    "error": [], 
+                                    "duration": 28.130899906158447, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175956.588465, 
+                                            "started_at": 1518175951.0922, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175953.307739, 
+                                                    "started_at": 1518175953.26655, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175956.557203, 
+                                                    "started_at": 1518175953.307869, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175956.58834, 
+                                                    "started_at": 1518175956.557345, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175980.22304, 
+                                            "started_at": 1518175956.588539, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175969.102001, 
+                                    "error": [], 
+                                    "duration": 26.763664960861206, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175974.313727, 
+                                            "started_at": 1518175969.10204, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175971.355299, 
+                                                    "started_at": 1518175971.311452, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175974.278521, 
+                                                    "started_at": 1518175971.355445, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175974.313609, 
+                                                    "started_at": 1518175974.278742, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518175996.865645, 
+                                            "started_at": 1518175974.313796, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175981.354321, 
+                                    "error": [], 
+                                    "duration": 25.540185928344727, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518175986.514925, 
+                                            "started_at": 1518175981.354354, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518175983.578046, 
+                                                    "started_at": 1518175983.535553, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175986.483342, 
+                                                    "started_at": 1518175983.57818, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518175986.514799, 
+                                                    "started_at": 1518175986.483485, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176007.894477, 
+                                            "started_at": 1518175986.514998, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518175998.060886, 
+                                    "error": [], 
+                                    "duration": 27.430639028549194, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176003.216976, 
+                                            "started_at": 1518175998.060923, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176000.294108, 
+                                                    "started_at": 1518176000.250098, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176003.184888, 
+                                                    "started_at": 1518176000.294256, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176003.216859, 
+                                                    "started_at": 1518176003.185023, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176026.491507, 
+                                            "started_at": 1518176003.217043, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176009.045636, 
+                                    "error": [], 
+                                    "duration": 27.987010955810547, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176014.170743, 
+                                            "started_at": 1518176009.045668, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176011.263258, 
+                                                    "started_at": 1518176011.225382, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176014.137646, 
+                                                    "started_at": 1518176011.263392, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176014.170583, 
+                                                    "started_at": 1518176014.137794, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176038.032618, 
+                                            "started_at": 1518176014.170818, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176027.714691, 
+                                    "error": [], 
+                                    "duration": 27.64581608772278, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176032.916496, 
+                                            "started_at": 1518176027.714728, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176029.943185, 
+                                                    "started_at": 1518176029.900317, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176032.885675, 
+                                                    "started_at": 1518176029.94333, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176032.916378, 
+                                                    "started_at": 1518176032.885789, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176056.36048, 
+                                            "started_at": 1518176032.916569, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176038.996568, 
+                                    "error": [], 
+                                    "duration": 25.19382905960083, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176044.162271, 
+                                            "started_at": 1518176038.996601, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176041.237132, 
+                                                    "started_at": 1518176041.194378, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176044.131522, 
+                                                    "started_at": 1518176041.237241, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176044.162158, 
+                                                    "started_at": 1518176044.131649, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176065.190371, 
+                                            "started_at": 1518176044.162339, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176057.532521, 
+                                    "error": [], 
+                                    "duration": 25.15337896347046, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176062.64314, 
+                                            "started_at": 1518176057.532557, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176059.758335, 
+                                                    "started_at": 1518176059.718856, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176062.609899, 
+                                                    "started_at": 1518176059.758455, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176062.64304, 
+                                                    "started_at": 1518176062.610019, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176083.685871, 
+                                            "started_at": 1518176062.643198, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176066.901334, 
+                                    "error": [], 
+                                    "duration": 28.13813805580139, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176072.029952, 
+                                            "started_at": 1518176066.901369, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176069.115229, 
+                                                    "started_at": 1518176069.076142, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176071.997685, 
+                                                    "started_at": 1518176069.115359, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176072.029828, 
+                                                    "started_at": 1518176071.997822, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176096.039446, 
+                                            "started_at": 1518176072.030023, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176084.704795, 
+                                    "error": [], 
+                                    "duration": 25.014007091522217, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176089.84887, 
+                                            "started_at": 1518176084.704827, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176086.931547, 
+                                                    "started_at": 1518176086.888695, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176089.817567, 
+                                                    "started_at": 1518176086.931686, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176089.848766, 
+                                                    "started_at": 1518176089.817686, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176110.718776, 
+                                            "started_at": 1518176089.848931, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176097.019902, 
+                                    "error": [], 
+                                    "duration": 24.41525101661682, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176103.088832, 
+                                            "started_at": 1518176097.01993, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176099.235707, 
+                                                    "started_at": 1518176099.192409, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176103.055371, 
+                                                    "started_at": 1518176099.235954, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176103.088702, 
+                                                    "started_at": 1518176103.055485, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176122.435129, 
+                                            "started_at": 1518176103.088906, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176111.749305, 
+                                    "error": [], 
+                                    "duration": 25.36893892288208, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176117.039052, 
+                                            "started_at": 1518176111.749342, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176113.973186, 
+                                                    "started_at": 1518176113.935128, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176117.007021, 
+                                                    "started_at": 1518176113.973338, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176117.038887, 
+                                                    "started_at": 1518176117.007158, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176138.118215, 
+                                            "started_at": 1518176117.039144, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176123.420668, 
+                                    "error": [], 
+                                    "duration": 28.352301120758057, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176128.640723, 
+                                            "started_at": 1518176123.420706, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176125.653946, 
+                                                    "started_at": 1518176125.608702, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176128.610077, 
+                                                    "started_at": 1518176125.654089, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176128.640596, 
+                                                    "started_at": 1518176128.610221, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176152.772898, 
+                                            "started_at": 1518176128.640847, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176139.090201, 
+                                    "error": [], 
+                                    "duration": 27.553100109100342, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176144.256065, 
+                                            "started_at": 1518176139.09024, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176141.328938, 
+                                                    "started_at": 1518176141.2818, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176144.225267, 
+                                                    "started_at": 1518176141.329085, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176144.255962, 
+                                                    "started_at": 1518176144.225391, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176167.643278, 
+                                            "started_at": 1518176144.256125, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176153.804924, 
+                                    "error": [], 
+                                    "duration": 27.90603804588318, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176159.047872, 
+                                            "started_at": 1518176153.804962, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176156.046516, 
+                                                    "started_at": 1518176156.000173, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176159.01274, 
+                                                    "started_at": 1518176156.046703, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176159.04777, 
+                                                    "started_at": 1518176159.012885, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176182.710939, 
+                                            "started_at": 1518176159.047931, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }, 
+                                {
+                                    "timestamp": 1518176168.613073, 
+                                    "error": [], 
+                                    "duration": 27.51899290084839, 
+                                    "output": {
+                                        "additive": [], 
+                                        "complete": []
+                                    }, 
+                                    "idle_duration": 1.0, 
+                                    "atomic_actions": [
+                                        {
+                                            "finished_at": 1518176175.016208, 
+                                            "started_at": 1518176168.613111, 
+                                            "name": "glance_v2.create_image", 
+                                            "children": [
+                                                {
+                                                    "finished_at": 1518176170.845137, 
+                                                    "started_at": 1518176170.801516, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176174.988172, 
+                                                    "started_at": 1518176170.845282, 
+                                                    "name": "glance_v2.upload_data", 
+                                                    "children": []
+                                                }, 
+                                                {
+                                                    "finished_at": 1518176175.016089, 
+                                                    "started_at": 1518176174.988279, 
+                                                    "name": "glance_v2.get_image", 
+                                                    "children": []
+                                                }
+                                            ]
+                                        }, 
+                                        {
+                                            "finished_at": 1518176197.132035, 
+                                            "started_at": 1518176175.01628, 
+                                            "name": "nova.boot_servers", 
+                                            "children": []
+                                        }
+                                    ]
+                                }
+                            ], 
+                            "failed_iteration_count": 1, 
+                            "total_iteration_count": 20, 
+                            "created_at": "2018-02-09T11:31:35", 
+                            "updated_at": "2018-02-09T11:37:40", 
+                            "contexts": {
+                                "users": {
+                                    "tenants": 3, 
+                                    "users_per_tenant": 5
+                                }
+                            }, 
+                            "contexts_results": [
+                                {
+                                    "setup": {
+                                        "finished_at": 1518175901.186129, 
+                                        "started_at": 1518175895.093909, 
+                                        "atomic_actions": [], 
+                                        "error": null
+                                    }, 
+                                    "cleanup": {
+                                        "finished_at": 1518176259.258796, 
+                                        "started_at": 1518176250.675191, 
+                                        "atomic_actions": [], 
+                                        "error": null
+                                    }, 
+                                    "plugin_cfg": {
+                                        "users_per_tenant": 5, 
+                                        "project_domain": "default", 
+                                        "user_choice_method": "random", 
+                                        "user_domain": "default", 
+                                        "tenants": 3, 
+                                        "resource_management_workers": 20
+                                    }, 
+                                    "plugin_name": "users@openstack"
+                                }, 
+                                {
+                                    "setup": {
+                                        "finished_at": 1518175901.186641, 
+                                        "started_at": 1518175901.186638, 
+                                        "atomic_actions": [], 
+                                        "error": null
+                                    }, 
+                                    "cleanup": {
+                                        "finished_at": 1518176250.674666, 
+                                        "started_at": 1518176197.152416, 
+                                        "atomic_actions": [], 
+                                        "error": null
+                                    }, 
+                                    "plugin_cfg": [
+                                        "glance", 
+                                        "nova"
+                                    ], 
+                                    "plugin_name": "cleanup@openstack"
+                                }
+                            ], 
+                            "position": 0, 
+                            "pass_sla": true, 
+                            "sla_results": {
+                                "sla": [
+                                    {
+                                        "criterion": "max_avg_duration", 
+                                        "detail": "Average duration of one iteration 27.59s <= 60.00s - Passed", 
+                                        "success": true
+                                    }, 
+                                    {
+                                        "criterion": "max_seconds_per_iteration", 
+                                        "detail": "Maximum seconds per iteration 34.67s <= 60.00s - Passed", 
+                                        "success": true
+                                    }, 
+                                    {
+                                        "criterion": "failure_rate", 
+                                        "detail": "Failure rate criteria 0.00% <= 5.00% <= 10.00% - Passed", 
+                                        "success": true
+                                    }
+                                ]
+                            }, 
+                            "sla": {
+                                "max_avg_duration": 60, 
+                                "max_seconds_per_iteration": 60, 
+                                "failure_rate": {
+                                    "max": 10
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
