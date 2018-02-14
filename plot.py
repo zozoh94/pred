@@ -40,6 +40,11 @@ def main(argv):
                       dest='title', 
                       metavar='TITLE', 
                       help='title on the graph')
+    parser.add_option('-n', '--title2', 
+                      type="string",
+                      dest='title2', 
+                      metavar='TITLE', 
+                      help='title new line on the graph')
 
     if len(sys.argv) == 1:
         parser.parse_args(['--help'])
@@ -61,7 +66,7 @@ def main(argv):
                 print("Your file is not a correct json file or the informations needed are not correctly formatted")
                 sys.exit(2)
 
-    plt.title(OPTIONS.title)
+    plt.title(OPTIONS.title + (('\n' + OPTIONS.title2) if OPTIONS.title2 else ''))
     plt.legend()
     plt.xlabel('Iterations')
     plt.ylabel('Duration (s)')
